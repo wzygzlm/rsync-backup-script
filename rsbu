@@ -599,8 +599,8 @@ then
                      echo "Not test mode. We ARE performing the backup."
 		     echo "I am in local mode."
                   fi
-		  echo "rsync -avH --delete --link-dest=$LastBackupPath $Excludes $BackupData $TodaysBackupPath"
-                  rsync -aH --delete --link-dest=$LastBackupPath $Excludes $BackupData $TodaysBackupPath
+		  echo "rsync -avzPH --delete --link-dest=$LastBackupPath $Excludes $HostName$BackupData $TodaysBackupPath"
+                  rsync -avzPH --delete --link-dest=$LastBackupPath $Excludes $HostName$BackupData $TodaysBackupPath
                else
                   if [ $verbose = 1 ]
                   then
@@ -619,7 +619,8 @@ then
                      echo "Not test mode. We ARE performing the backup."
 		     echo "I am in remote mode."
                   fi
-                  rsync -avH -e ssh --delete --link-dest=$LastBackupPath $Excludes $HostName$BackupData $TodaysBackupPath
+		  echo "rsync -avzPH -e ssh --delete --link-dest=$LastBackupPath $Excludes $HostName$BackupData $TodaysBackupPath"
+                  rsync -avzPH -e ssh --delete --link-dest=$LastBackupPath $Excludes $HostName$BackupData $TodaysBackupPath
                else
                   if [ $verbose = 1 ]
                   then
@@ -648,8 +649,8 @@ then
                      echo "Not test mode. We ARE performing the backup."
 		     echo "I am in local mode."
                   fi
-		  echo "rsync -avH --delete $Excludes $BackupData $TodaysBackupPath"
-                  rsync -aH --delete $Excludes $BackupData $TodaysBackupPath
+		  echo "rsync -avzPH --delete $Excludes $HostName$BackupData $TodaysBackupPath"
+                  rsync -avzPH --delete $Excludes $HostName$BackupDat $TodaysBackupPath
                else
                   if [ $verbose = 1 ]
                   then
@@ -668,7 +669,8 @@ then
                      echo "Not test mode. We ARE performing the backup."
 		     echo "I am in remote mode."
                   fi
-                  rsync -avH -e ssh --delete $Excludes $HostName$BackupData $TodaysBackupPath
+		  echo "rsync -avzPH -e ssh --delete $Excludes $HostName$BackupData $TodaysBackupPath"
+                  rsync -avzPH -e ssh --delete $Excludes $HostName$BackupData $TodaysBackupPath
                else
                   if [ $verbose = 1 ]
                   then
