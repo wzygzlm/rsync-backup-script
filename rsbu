@@ -222,16 +222,16 @@ MyUnmount()
 {
    cd
    # Check mtab to see if the media is mounted
-   while grep $MountPoint /etc/mtab
-   do
-      echo "Unmounting $MountPoint"
-      if ! umount $MountPoint
-      then
-         echo "Error ummounting media from $MountPoint. Program terminated with media still mounted. Cannot Eject."
-         # I think it should exit with an error status now otherwise it will enter the dead loop.
-         exit 1
-      fi
-   done
+#    while grep $MountPoint /etc/mtab
+#    do
+#       echo "Unmounting $MountPoint"
+#       if ! umount $MountPoint
+#       then
+#          echo "Error ummounting media from $MountPoint. Program terminated with media still mounted. Cannot Eject."
+#          # I think it should exit with an error status now otherwise it will enter the dead loop.
+#          exit 1
+#       fi
+#    done
 }
 
 ################################################################################
@@ -585,6 +585,7 @@ then
             fi
             # Do the backup and delete files that don't exist on the source side, i.e., were deleted.
             # determine if the host is local or remote
+	    echo "ThisHost is $ThisHost and $HostName is $HostName."
             if [ $ThisHost = $HostName ]
             then
                if [ $verbose = 1 ]
@@ -596,8 +597,10 @@ then
                   if [ $verbose = 1 ]
                   then
                      echo "Not test mode. We ARE performing the backup."
+		     echo "I am in local mode."
                   fi
-                  rsync -aH --delete --link-dest=$LastBackupPath $Excludes $HostName$BackupData $TodaysBackupPath
+		  echo "rsync -avH --delete --link-dest=$LastBackupPath $Excludes $BackupData $TodaysBackupPath"
+                  rsync -aH --delete --link-dest=$LastBackupPath $Excludes $BackupData $TodaysBackupPath
                else
                   if [ $verbose = 1 ]
                   then
@@ -614,8 +617,9 @@ then
                   if [ $verbose = 1 ]
                   then
                      echo "Not test mode. We ARE performing the backup."
+		     echo "I am in remote mode."
                   fi
-                  rsync -aH -e ssh --delete --link-dest=$LastBackupPath $Excludes $HostName$BackupData $TodaysBackupPath
+                  rsync -avH -e ssh --delete --link-dest=$LastBackupPath $Excludes $HostName$BackupData $TodaysBackupPath
                else
                   if [ $verbose = 1 ]
                   then
@@ -630,6 +634,7 @@ then
             fi
             # Do the backup without a link to yesterday.
             # determine if the host is local or remote
+	    echo "ThisHost is $ThisHost and $HostName is $HostName."
             if [ $ThisHost = $HostName ]
             then
                if [ $verbose = 1 ]
@@ -641,8 +646,10 @@ then
                   if [ $verbose = 1 ]
                   then
                      echo "Not test mode. We ARE performing the backup."
+		     echo "I am in local mode."
                   fi
-                  rsync -aH --delete $Excludes $HostName$BackupData $TodaysBackupPath
+		  echo "rsync -avH --delete $Excludes $BackupData $TodaysBackupPath"
+                  rsync -aH --delete $Excludes $BackupData $TodaysBackupPath
                else
                   if [ $verbose = 1 ]
                   then
@@ -659,8 +666,9 @@ then
                   if [ $verbose = 1 ]
                   then
                      echo "Not test mode. We ARE performing the backup."
+		     echo "I am in remote mode."
                   fi
-                  rsync -aH -e ssh --delete $Excludes $HostName$BackupData $TodaysBackupPath
+                  rsync -avH -e ssh --delete $Excludes $HostName$BackupData $TodaysBackupPath
                else
                   if [ $verbose = 1 ]
                   then
