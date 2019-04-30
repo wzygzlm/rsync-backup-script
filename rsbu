@@ -475,7 +475,7 @@ then
 elif [ $backup = 1 ]
 then
    # Ensure that the device is mounted
-   MyMount
+   # MyMount
    # Print backup parition usage information in Human and Kb formats
    PartUsage
    ################################################################################
@@ -695,7 +695,7 @@ then
 elif [ $check = 1 ]
 then
    # Ensure that the device is mounted
-   MyMount
+   # MyMount
    echo "##############################################################################"
    # Set the initial loop counter
    let Count=1
